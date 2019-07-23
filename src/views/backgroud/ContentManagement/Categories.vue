@@ -21,66 +21,72 @@
 </template>
 
 <script>
-// let id = 1000;
+ let id = 1000;
 
 export default {
-  data() {
-    // const data = [{
-
-    // }];
-    // return {
-    //   data: JSON.parse(JSON.stringify(data)),
-    //   data: JSON.parse(JSON.stringify(data))
-    // }
+    data(){
+    
     return {
-      GoodsList: []
-    };
+      GoodsList: [],
+      id:'',
+      name:'',
+      parentid:'',
+      childlist:[],
+      
+    }
   },
-  methods: {
-    // append(data) {
-    //   const newChild = { id: id++, label: "New test", children: [] };
-    //   if (!data.children) {
-    //     this.$set(data, "children", []);
-    //   }
-    //   data.children.push(newChild);
-    // },
-    // remove(node, data) {
-    //   const parent = node.parent;
-    //   const children = parent.data.children || parent.data;
-    //   const index = children.findIndex(d => d.id === data.id);
-    //   children.splice(index, 1);
-    // },
-    // renderContent(h, { node, data, store }) {
-    //   return (
-    //     <span class="custom-tree-node">
-    //       <span>{node.label}</span>
-    //       <span>
-    //         <el-button
-    //           size="mini"
-    //           type="text"
-    //           on-click={() => this.append(data)}
-    //         >
-    //           新增
-    //         </el-button>
-    //         <el-button
-    //           size="mini"
-    //           type="text"
-    //           on-click={() => this.remove(node, data)}
-    //         >
-    //           删除
-    //         </el-button>
-    //         <el-button size="mini" type="text">
-    //           修改
-    //         </el-button>
-    //       </span>
-    //     </span>
-    //   );
-    // },
+    methods: {
+    append(data) {
+      const newChild = { id: id++, label: "New test", children: [] };
+      if (!data.children) {
+        this.$set(data, "children", []);
+      }
+      data.children.push(newChild);
+      this.axios.get("/7api/content/category/create", { params: {parentId:this.id,name:"New test"}}).then(response => {
+          console.log(response);
+        }).catch(error => {
+          alert(error);
+        });
+    },
+    remove(node, data) {
+      const parent = node.parent;
+      const children = parent.data.children || parent.data;
+      const index = children.findIndex(d => d.id === data.id);
+      children.splice(index, 1);
+    },
+    renderContent(h, { node, data, store }) {
+      return (
+        <span class="custom-tree-node">
+          <span>{node.label}</span>
+          <span>
+            <el-button
+              size="mini"
+              type="text"
+              on-click={() => this.append(data)}
+            >
+              新增
+            </el-button>
+            <el-button
+              size="mini"
+              type="text"
+              on-click={() => this.remove(node, data)}
+            >
+              删除
+            </el-button>
+            <el-button size="mini" type="text">
+              修改
+            </el-button>
+          </span>
+        </span>
+      );
+     },
     contentcatList() {
       //从后台获取商品列表
-      this.axios.get("/api/content/category/list", { params: 0 }).then(response => {
+      this.axios.get("/7api/content/category/list", { params: 0 }).then(response => {
           console.log(response);
           this.GoodsList = response.data;
+          
+          console.log(this.GoodsList);
         }).catch(error => {
           alert(error);
         });
