@@ -17,104 +17,16 @@
         </div>
       </div>
       <div id="div-text">
-        <ul id="ul-text">
+        <ul id="ul-text" v-for="item in itemList" :key="item.id">
           <li class="li-text">
             <div class="div-link">
-              <a class="link" href></a>
+              <a class="link" href="">{{ item.image }} </a>
             </div>
             <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
+              <span style="color: red">{{ item.price }}</span>
             </div>
             <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
-            </div>
-          </li>
-          <li class="li-text">
-            <div class="div-link">
-              <a class="link" href></a>
-            </div>
-            <div class="div-span-jiage">
-              <span style="color: red">￥998</span>
-            </div>
-            <div class="div-mingcheng">
-              <a href>索尼电视</a>
+              <a href>{{ item.title }}</a>
             </div>
           </li>
         </ul>

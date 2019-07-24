@@ -38,13 +38,22 @@ module.exports = {
           '^/5api': ''
         }
       },
-      '/6api': { //内容分类管理
-        target: 'http://10.25.193.165:9999', //源地址
+      '/6api': { //搜索 wenkang
+        target: 'http://10.25.193.148:9996', //源地址
+        // ws: true, //是否代理websockets
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/6api': ''
         }
       },
+      '/7api': { //搜索 jinhua
+        target: 'http://10.25.193.165:9999', //源地址
+        // ws: true, //是否代理websockets
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/7api': ''
+        }
+      }
     }
   }
 }

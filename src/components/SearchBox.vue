@@ -12,7 +12,6 @@
         <button @click="sousuo()">搜索</button>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -33,17 +32,18 @@ export default {
       }
     },
     methods:{
-      sousuo(){
-        this.axios.get('/api/search/q',{params:{kw:this.kw}}).then((response) => {
+    sousuo(){
+        this.axios.get('/6api/search/q',{params:{kw:this.kw}}).then((response) => {
           console.log(response.data.data);
           this.itemList = response.data.data.itemList;
           console.log(this.itemList);
         }).catch((error) => {
           alert(error);
-        })
+        });
+        this.$router.push({name:"../components/shangpinliebiao.vue"})
       }
     }
-  }
+}
 </script>
 
 
@@ -57,7 +57,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100px;
-  top: 30px;
+  top: 0px;
 }
 #div-img {
   float: left;
