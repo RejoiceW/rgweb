@@ -11,28 +11,34 @@
         <el-button @click="dialogTreeVisible = true; getCategories()">选择类目</el-button>
         <span>{{ ' 您选择的类目id为：' + form.cid}}</span>
       </el-form-item>
-      <el-form-item label="商品标题" prop="title">
+      <el-form-item label="商品标题">
         <el-input v-model="form.title" placeholder="请输入商品标题"></el-input>
       </el-form-item>
-      <el-form-item label="商品卖点" prop="sellPoint">
+      <el-form-item label="商品卖点">
         <el-input type="textarea" autosize v-model="form.sellPoint" placeholder="请输入商品卖点"></el-input>
       </el-form-item>
-      <el-form-item label="商品价格" prop="price">
+      <el-form-item label="商品价格">
         <el-input v-model="form.price" placeholder="请输入商品价格"></el-input>
       </el-form-item>
-      <el-form-item-number label="商品库存" :min="1" controls-position="right" prop="number">
-        <el-input v-model="form.number" placeholder="请输入商品库存"></el-input>
-      </el-form-item-number>
-      <el-form-item label="条形码" prop="barCode">
-        <el-input v-model="form.barCode"></el-input>
+      <el-form-item label="商品库存">
+        <el-input-number
+          v-model="form.num"
+          size="medium"
+          placeholder="请输入商品库存"
+          :min="1"
+          controls-position="right"
+        ></el-input-number>
+      </el-form-item>
+      <el-form-item label="条形码">
+        <el-input v-model="form.barcode"></el-input>
       </el-form-item>
       <el-form-item label="商品图片">
         <el-upload class="upload-demo" action multiple :limit="3">
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </el-form-item>
-      <el-form-item label="商品描述" v-model="form.desc" autosize prop="name" placeholder="请输入商品描述">
-        <wangEditor :catchData="catchData"></wangEditor>
+      <el-form-item label="商品描述">
+        <el-input type="textarea" v-model="form.desc" :rows="5" placeholder="请输入商品描述"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm()">提交</el-button>
@@ -65,7 +71,6 @@
 </template>
 
 <script>
-import wangEditor from "./wangEditor";
 import Qs from "qs";
 
 export default {
@@ -78,13 +83,14 @@ export default {
         title: "",
         sellPoint: "",
         price: "",
-        number: "",
-        barCode: "",
+        num: "",
+        barcode: "",
+        image: "",
         desc: ""
       },
+      //存放商品描述
       dialogTreeVisible: false, //树形组件默认隐藏
       categoriesList: [], //存放后台传回的类目
-      itemId: [],
       defaultProps: {
         children: "children",
         label: "label"
@@ -92,32 +98,22 @@ export default {
     };
   },
   methods: {
-    catchData(value) {
-      //接受wangEditor子组件传过来的参数
-      this.content = value;
-    },
     submitForm() {
       //新增商品表单提交
-      var item = {
-        title: this.form.title,
-        sellPoint: this.form.sellPoint,
-        price: this.form.price,
-        number: this.form.number,
-        barCode: this.form.barCode
-      }
       this.axios
-        .post("/1api/item/save", Qs.stringify(item), {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+        .get("/1api/item/save", {
+          params: {
+            title: this.form.title,
+            sellPoint: this.form.sellPoint,
+            price: this.form.price,
+            num: this.form.num,
+            barcode: this.form.barCode,
+            desc: this.form.desc,
+            cid: this.form.cid
           }
         })
         .then(response => {
-          this.$message({
-            //新增商品信息成功提示信息
-            message: "商品信息新增成功！",
-            type: "success",
-            center: true
-          });
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -153,17 +149,12 @@ export default {
       }
     },
     getCheckedKeys() {
-      //
+      //获取选择的类目id
       this.itemId = this.$refs.treeForm.getCheckedKeys();
-
       for (var i = 0; i < this.itemId.length; i++) {
         this.form.cid = this.itemId[0];
-        console.log(this.form.cid);
       }
     }
-  },
-  components: {
-    wangEditor: wangEditor
   }
 };
 </script>

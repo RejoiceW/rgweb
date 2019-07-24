@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <my-header></my-header>
 
     <div id="top-div">
@@ -9,9 +8,9 @@
         <h3>用户登录</h3>
         <hr />
         <form>
-          <input type="text" placeholder="请输入用户名" class="login-input" v-model="form.name">
+          <input type="text" placeholder="请输入用户名" class="login-input" v-model="form.name" />
           <br />
-          <input type="password" placeholder="请输入密码" class="login-input" v-model="form.pass">
+          <input type="password" placeholder="请输入密码" class="login-input" v-model="form.pass" />
           <br />
           <button class="login-input" id="login-button" @click="onSubmit">登 录</button>
         </form>
@@ -25,16 +24,15 @@
           <el-form-item>
             <el-button type="primary" @click="onSubmit">立即创建</el-button>
           </el-form-item>
-        </el-form> -->
+        </el-form>-->
         <div id="a-div">
-          <router-link to="/findPass">忘记密码 </router-link>
+          <router-link to="/findPass">忘记密码</router-link>
           <router-link to="/register">免费注册</router-link>
         </div>
       </div>
     </div>
 
     <my-footer></my-footer>
-
   </div>
 </template>
 
@@ -53,7 +51,25 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('submit!');
+      //发送请求
+      this.axios
+        .post("", Qs.stringify(from), {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+        .then(response => {
+         this.$message({
+            //修改商品信息成功提示信息
+            message: "登陆成功",
+            type: "success",
+            center: true
+          });
+        })
+        .catch(error => {
+          alert(error);
+        });
+      console.log("submit!");
     }
   },
   components: {

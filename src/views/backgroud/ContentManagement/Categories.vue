@@ -14,7 +14,6 @@
         node-key="id"
         default-expand-all
         :expand-on-click-node="false"
-        :render-content="renderContent"
       ></el-tree>
     </div>
   </div>
@@ -78,7 +77,7 @@ export default {
     // },
     contentcatList() {
       //从后台获取商品列表
-      this.axios.get("/api/content/category/list", { params: 0 }).then(response => {
+      this.axios.get("/6api/content/category/list", { params: 0 }).then(response => {
           console.log(response);
           this.GoodsList = response.data;
         }).catch(error => {
