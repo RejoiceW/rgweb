@@ -6,21 +6,21 @@
     </el-breadcrumb>
     <br />
 
-    <el-form :model="form" ref="form" label-width="80px">
+    <el-form :model="form" ref="form" :rules="rules" label-width="80px" class="demo-ruleForm">
       <el-form-item label="商品类目">
         <el-button @click="dialogTreeVisible = true; getCategories()">选择类目</el-button>
         <span>{{ ' 您选择的类目id为：' + form.cid}}</span>
       </el-form-item>
-      <el-form-item label="商品标题">
+      <el-form-item label="商品标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入商品标题"></el-input>
       </el-form-item>
-      <el-form-item label="商品卖点">
+      <el-form-item label="商品卖点" prop="sellPoint">
         <el-input type="textarea" autosize v-model="form.sellPoint" placeholder="请输入商品卖点"></el-input>
       </el-form-item>
-      <el-form-item label="商品价格">
+      <el-form-item label="商品价格" prop="price">
         <el-input v-model="form.price" placeholder="请输入商品价格"></el-input>
       </el-form-item>
-      <el-form-item label="商品库存">
+      <el-form-item label="商品库存" prop="num">
         <el-input-number
           v-model="form.num"
           size="medium"
@@ -29,19 +29,23 @@
           controls-position="right"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="条形码">
+      <el-form-item label="条形码" prop="barcode">
         <el-input v-model="form.barcode"></el-input>
       </el-form-item>
-      <el-form-item label="商品图片">
-        <el-upload class="upload-demo" action multiple :limit="3">
-          <el-button size="small" type="primary">点击上传</el-button>
+      <el-form-item label="商品图片" prop="image">
+        <el-upload class="upload-demo" action :limit="1" drag="true">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="商品描述">
+      <el-form-item label="商品描述" prop="desc">
         <el-input type="textarea" v-model="form.desc" :rows="5" placeholder="请输入商品描述"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">提交</el-button>
+        <el-button type="primary" @click="submitForm('form')">提交</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -56,6 +60,10 @@
         check-strictly
         @check-change="handleClick"
         ref="treeForm"
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
       ></el-tree>
 
       <div slot="footer" class="dialog-footer">
@@ -76,7 +84,8 @@ import Qs from "qs";
 export default {
   data() {
     return {
-      i: 0, //
+      loading: true, //开启页面加载效果
+      i: 0,
       form: {
         //存放输入的表单数据
         cid: "",
@@ -88,18 +97,42 @@ export default {
         image: "",
         desc: ""
       },
-      //存放商品描述
       dialogTreeVisible: false, //树形组件默认隐藏
       categoriesList: [], //存放后台传回的类目
       defaultProps: {
         children: "children",
         label: "label"
+      },
+      rules: {
+        //表单校验规则
+        title: { required: true, message: "请输入商品标题", trigger: "blur" },
+        sellPoint: {
+          required: true,
+          message: "请输入商品卖点",
+          trigger: "blur"
+        },
+        price: { required: true, message: "请输入商品价格", trigger: "blur" },
+        barcode: {
+          required: true,
+          message: "请输入商品条形码",
+          trigger: "blur"
+        },
+        desc: { required: true, message: "请输入商品描述", trigger: "blur" }
       }
     };
   },
   methods: {
-    submitForm() {
+    submitForm(forName) {
       //新增商品表单提交
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+
       this.axios
         .get("/1api/item/save", {
           params: {

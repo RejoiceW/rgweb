@@ -6,8 +6,10 @@
     </el-breadcrumb>
     <br />
 
-    <el-button type="danger" @click="deleteCategories()">删除</el-button>
-    <el-button type="danger" @click="dialogFormVisible = true;">修改</el-button>
+    <el-button type="primary" @click="deleteCategories()" size="medium">修改</el-button>
+    <el-button type="warning" @click="dialogFormVisible = true;" size="medium">删除</el-button>
+    <br>
+
     <el-tree
       :data="categoriesList"
       :props="defaultProps"
@@ -16,6 +18,10 @@
       check-strictly
       @check-change="handleClick"
       ref="treeForm"
+      v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
     ></el-tree>
     <el-dialog title="修改商品类目" :visible.sync="dialogFormVisible">
       <el-form :model="categoryIfo">
@@ -35,6 +41,7 @@
 export default {
   data() {
     return {
+      loading: true, //开启页面加载效果
       categoriesList: [], //存放后台传回的类目
       defaultProps: {
         children: "children",
