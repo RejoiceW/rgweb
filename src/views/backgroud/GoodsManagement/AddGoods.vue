@@ -29,7 +29,7 @@
           controls-position="right"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="条形码" prop="barcode">
+      <el-form-item label="条形码">
         <el-input v-model="form.barcode"></el-input>
       </el-form-item>
       <el-form-item label="商品图片" prop="image">
@@ -112,11 +112,6 @@ export default {
           trigger: "blur"
         },
         price: { required: true, message: "请输入商品价格", trigger: "blur" },
-        barcode: {
-          required: true,
-          message: "请输入商品条形码",
-          trigger: "blur"
-        },
         desc: { required: true, message: "请输入商品描述", trigger: "blur" }
       }
     };
