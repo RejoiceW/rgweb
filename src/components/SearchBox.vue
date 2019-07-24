@@ -40,7 +40,7 @@ export default {
         }).catch((error) => {
           alert(error);
         });
-        this.$router.push({name:"../components/shangpinliebiao.vue", params:{ id }})
+        this.$router.push({name:"../components/shangpinliebiao.vue"})
       }
     }
 }
