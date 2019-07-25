@@ -53,7 +53,16 @@ module.exports = {
         pathRewrite: {
           '^/7api': ''
         }
-      }
+      },
+      '/wenkang':{  //首页 文康
+        target:'http://10.25.193.148:9998',
+        changeOrigin:true,
+        ws:true,
+        pathRewrite:{
+              '^/wenkang':''
+          }
+      },
+
     }
   }
 }

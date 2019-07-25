@@ -12,6 +12,7 @@ import store from './store'
 // 引入axios组件
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import './assets/index.scss'
 
 //注册组件
 Vue.use(VueAxios,axios);
