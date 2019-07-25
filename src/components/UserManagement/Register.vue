@@ -8,20 +8,17 @@
         <div id="inner-div">
             <h3>用户注册</h3>
             <hr />
-            <form action>
-                <input type="text" placeholder="请输入用户名" name="" class="login-input" />
+            <form>
+                <input type="text" placeholder="请输入用户名" class="login-input" />
                 <br />
-                <input type="password" placeholder="请输入密码" name="" class="login-input" />
+                <input type="password" placeholder="请输入密码" class="login-input" />
                 <br />
-                <input type="password" placeholder="请再次输入密码" name="" class="login-input" />
+                <input type="password" placeholder="请再次输入密码" class="login-input" />
                 <br>
-                <input type="text" placeholder="请输入手机号" name="" class="login-input" />
+                <input type="text" placeholder="请输入手机号" class="login-input" />
                 <br>
-                <input type="email" placeholder="请输入邮箱" name="" class="login-input" />
+                <input type="email" placeholder="请输入邮箱" class="login-input" />
                 <br>
-                <input type="text" placeholder="请输入密码提示问题" name="" class="login-input" />
-                <br>
-                <input type="text" placeholder="请输入密码提示问题答案" name="" class="login-input" />
                 <button class="login-input" id="login-button">立即注册</button>
             </form>
             <div id="router-div">
@@ -72,7 +69,7 @@ h1 {
 }
 
 #inner-div {
-  height: 600px;
+  height: 500px;
   width: 400px;
   background-color: rgb(255, 255, 255);
   position: relative;

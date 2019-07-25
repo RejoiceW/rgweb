@@ -3,7 +3,10 @@
 
     <ul>
       <li class="header-li-left">
-        <router-link to="/userLogin">您好，请登录</router-link>
+        <router-link to="/home">首页</router-link>
+      </li>
+      <li class="header-li-left">
+        <router-link to="/userLogin">{{name}}</router-link>
       </li>
       <li class="header-li-left">
         <router-link to="/register">注册</router-link>
@@ -15,7 +18,7 @@
         <router-link to="/myRG">我的睿购</router-link>
       </li>
       <li class="header-li-right">
-        <router-link to="">我的订单</router-link>
+        <router-link to="/myOrder">我的订单</router-link>
       </li>
       <li class="header-li-right">
         <router-link to="/shoppingCart">购物车(0)</router-link>
@@ -26,7 +29,19 @@
 </template>
 
 <script>
-  export default {};
+  export default {
+    data(){
+      return{
+        name:""
+      }
+    },
+    mounted(){
+      this.name=localStorage.getItem("LoginUsername");
+      if(this.name==null){
+        this.name="您好，请登录"
+      }
+    }
+  };
 </script>
 
 <style scoped lang="scss">

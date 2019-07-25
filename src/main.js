@@ -12,7 +12,8 @@ import store from './store'
 // 引入axios组件
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
+// import Vueookies from "js-cookie"
+// Vue.use(VueCookies)
 //注册组件
 Vue.use(VueAxios,axios);
 Vue.use(ElementUI);
@@ -25,3 +26,4 @@ new Vue({
   store,  // 挂载store对象
   render: h => h(App)
 }).$mount('#app')
+

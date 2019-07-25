@@ -40,7 +40,6 @@ module.exports = {
       },
       '/6api': { //搜索 文康
         target: 'http://10.25.193.148:9996', //源地址
-        // ws: true, //是否代理websockets
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/6api': ''
@@ -48,13 +47,26 @@ module.exports = {
       },
       '/7api': { //搜索 金华
         target: 'http://10.25.193.165:9999', //源地址
-        // ws: true, //是否代理websockets
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/7api': ''
         }
+      },
+      '/8api': { //
+        target: 'http://10.25.193.148:9999', //源地址
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/8api': ''
+        }
+      },
+      '/9api': { //登录
+        target: 'http://10.25.193.177:9995', //源地址
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/9api': ''
+        }
+
       }
     }
   }
 }
-

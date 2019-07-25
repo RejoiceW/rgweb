@@ -37,8 +37,14 @@
       'my-header': Header,
       'my-footer': Footer,
       'my-searchBox': SearchBox
+    },
+    mounted() {
+      console.log(1);
+      console.log(localStorage.getItem("username"));
     }
+    
   }
+  
 </script>
 
 <style lang="scss" scoped>

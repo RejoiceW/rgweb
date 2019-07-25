@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
+
 import Home from './views/Home.vue'
 import UserLogin from './components/UserManagement/UserLogin'
 import Register from './components/UserManagement/Register'
@@ -8,6 +10,7 @@ import MyInfo from './components/UserManagement/MyRG/MyInfo'
 import ChangePass from './components/UserManagement/MyRG/ChangePass'
 import FindPass from './components/UserManagement/FindPass'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
+import MyOrder from './components/Myorder/MyOrder'
 
 import Background from './views/backgroud/Background'
 import AddGoods from './views/backgroud/GoodsManagement/AddGoods'
@@ -22,17 +25,18 @@ import TongjiNumber from './views/backgroud/InforSta/TongjiNumber'
 import UserList from './views/backgroud/UserManagement/UserList'
 
 Vue.use(Router)
-
-export default new Router({
-
+const router = new Router({
   // 配置路由匹配规则
   routes: [
     {
-      path: '/', 
-      redirect: '/home' //路由重定向
+      path: '/',
+      redirect: '/home' //路由重定向,
+      , meta: {
+        isLogin: false
+      }
     },
     {
-      path: '/background', 
+      path: '/background',
       redirect: '/background/addGoods' //路由重定向
     },
     {
@@ -42,7 +46,10 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home , 
+      meta: {
+        isLogin: false
+      }
     },
     {
       path: '/userLogin',
@@ -55,14 +62,25 @@ export default new Router({
       component: Register
     },
     {
+      path: '/myOrder',
+      name: 'myOrder',
+      component: MyOrder,
+      meta: {
+        isLogin: true
+      }
+    },
+    {
       path: '/myRG',
       name: 'myRG',
       component: MyRG,
-      children:[  // 嵌套子路由
+      children: [ // 嵌套子路由
         {
           path: '/myRG/myInfo',
           name: 'myInfo',
-          component: MyInfo
+          component: MyInfo,
+          meta: {
+            isLogin: true
+          }
         },
         {
           path: '/myRG/changePass',
@@ -85,7 +103,7 @@ export default new Router({
       path: '/background',
       name: 'background',
       component: Background,
-      children:[  // 嵌套子路由
+      children: [ // 嵌套子路由
         {
           path: '/background/addGoods',
           name: 'addGoods',
@@ -135,8 +153,46 @@ export default new Router({
           path: '/background/userList',
           name: 'userList',
           component: UserList
-        }
+        },
       ]
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+// console.log(from);
+// console.log(to);
+  //获取用户登录成功后储存的登录标志
+  let getFlag = localStorage.getItem("Flag");
+  //如果登录标志存在且为isLogin，即用户已登录
+  if (getFlag === "isLogin") {
+    //设置vuex登录状态为已登录
+    store.state.isLogin = true;
+    next()
+    //如果已登录，还想想进入登录注册界面，则定向回首页
+    if (to.path=='/userLogin') {  
+      next({
+         path:'/myRG/myInfo'
+      })
+    }
+    //如果登录标志不存在，即未登录
+  } else {
+    //用户想进入需要登录的页面，则定向回登录界面
+    if (to.meta.isLogin) {
+      next({
+        path: '/userLogin',
+      })
+      //用户进入无需登录的界面，则跳转继续
+    } else {
+      next()
+    }
+
+  }
+
+});
+
+router.afterEach(route => {
+  window.scroll(0, 0);
+});
+
+export default router;

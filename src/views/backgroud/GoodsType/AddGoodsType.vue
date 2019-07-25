@@ -71,6 +71,7 @@ export default {
       this.axios
         .get("/2api/item/cat/list")
         .then(response => {
+          this.loading = false;
           this.categoriesList = response.data;
         })
         .catch(error => {

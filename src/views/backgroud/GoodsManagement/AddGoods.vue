@@ -15,7 +15,7 @@
         <el-input v-model="form.title" placeholder="请输入商品标题"></el-input>
       </el-form-item>
       <el-form-item label="商品卖点" prop="sellPoint">
-        <el-input type="textarea" autosize v-model="form.sellPoint" placeholder="请输入商品卖点"></el-input>
+        <el-input v-model="form.sellPoint" placeholder="请输入商品卖点"></el-input>
       </el-form-item>
       <el-form-item label="商品价格" prop="price">
         <el-input v-model="form.price" placeholder="请输入商品价格"></el-input>
@@ -32,8 +32,17 @@
       <el-form-item label="条形码">
         <el-input v-model="form.barcode"></el-input>
       </el-form-item>
+    
       <el-form-item label="商品图片" prop="image">
-        <el-upload class="upload-demo" action :limit="1" drag="true">
+        <el-upload
+          class="upload-demo"
+          action="/8api/pic/upload2"
+          :limit="1"
+          drag
+          multiple
+          list-type="picture"
+          :on-success="uploadSuccess"
+        >
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">
             将文件拖到此处，或
@@ -106,28 +115,15 @@ export default {
       rules: {
         //表单校验规则
         title: { required: true, message: "请输入商品标题", trigger: "blur" },
-        sellPoint: {
-          required: true,
-          message: "请输入商品卖点",
-          trigger: "blur"
-        },
         price: { required: true, message: "请输入商品价格", trigger: "blur" },
-        desc: { required: true, message: "请输入商品描述", trigger: "blur" }
+        desc: { required: true, message: "请输入商品描述", trigger: "blur" },
+        num: { required: true, message: "请输入商品库存", trigger: "blur" }
       }
     };
   },
   methods: {
     submitForm(forName) {
       //新增商品表单提交
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-
       this.axios
         .get("/1api/item/save", {
           params: {
@@ -136,12 +132,19 @@ export default {
             price: this.form.price,
             num: this.form.num,
             barcode: this.form.barCode,
+            image: this.form.image,
             desc: this.form.desc,
             cid: this.form.cid
           }
         })
         .then(response => {
           console.log(response);
+          this.$message({
+            //修改商品信息成功提示信息
+            message: "新增商品成功！",
+            type: "success",
+            center: true
+          });
         })
         .catch(error => {
           console.log(error);
@@ -156,6 +159,7 @@ export default {
       this.axios
         .get("/2api/item/cat/list")
         .then(response => {
+          this.loading = false; //关闭页面加载效果
           this.categoriesList = response.data; //获得所有商品类别数据
         })
         .catch(error => {
@@ -182,7 +186,17 @@ export default {
       for (var i = 0; i < this.itemId.length; i++) {
         this.form.cid = this.itemId[0];
       }
-    }
+    },
+    uploadSuccess(res, file) {
+      //文件上传成功后获得图片地址
+      this.$message({
+            //上传成功提示信息
+            message: "上传图片成功",
+            type: "success",
+            center: true
+          });
+      this.form.image = res.url;
+      },
   }
 };
 </script>

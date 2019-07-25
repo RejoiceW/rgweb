@@ -8,23 +8,12 @@
         <h3>用户登录</h3>
         <hr />
         <form>
-          <input type="text" placeholder="请输入用户名" class="login-input" v-model="form.name" />
+          <input type="text" placeholder="请输入用户名" class="login-input" v-model="name" />
           <br />
-          <input type="password" placeholder="请输入密码" class="login-input" v-model="form.pass" />
+          <input type="password" placeholder="请输入密码" class="login-input" v-model="password" />
           <br />
           <button class="login-input" id="login-button" @click="onSubmit">登 录</button>
         </form>
-        <!-- <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="用户名">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="form.pass"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          </el-form-item>
-        </el-form>-->
         <div id="a-div">
           <router-link to="/findPass">忘记密码</router-link>
           <router-link to="/register">免费注册</router-link>
@@ -39,37 +28,62 @@
 <script>
 import Header from "../Header";
 import Footer from "../Footer";
+import Qs from "qs";
+import axios from "axios";
+import { constants } from 'crypto';
+// import { finished } from "stream";
 
 export default {
   data() {
     return {
-      form: {
-        name: "",
-        pass: ""
-      }
+      name: "",
+      password: ""
     };
   },
   methods: {
     onSubmit() {
       //发送请求
+      var item = { username: this.name, password: this.password };
       this.axios
-        .post("", Qs.stringify(from), {
+        .post("9api/sso/user/login", Qs.stringify(item), {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
           }
         })
         .then(response => {
-         this.$message({
-            //修改商品信息成功提示信息
-            message: "登陆成功",
-            type: "success",
-            center: true
-          });
+          console.log(response.data);
+          if (response.data.status == 200) {
+            this.$message({
+              //修改商品信息成功提示信息
+              message: "登陆成功",
+              type: "success",
+              center: true
+            });
+             //设置Vuex登录标志为true，默认userLogin为false
+          this.$store.dispatch("userLogin", true);
+         
+          //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
+          //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
+          localStorage.setItem("Flag", "isLogin");
+          localStorage.setItem("token",response.data.data);
+           localStorage.setItem("LoginUsername",this.name);
+          //iViewUi的友好提示
+         console.log( localStorage.getItem("Flag"));
+          //登录成功后跳转到指定页面
+          this.$router.go(-1);
+          }else {
+           this.$message({
+              //修改商品信息成功提示信息
+              message: response.data.msg,
+              type: "error",
+              center: true
+            }); 
+           
+          }
         })
         .catch(error => {
           alert(error);
         });
-      console.log("submit!");
     }
   },
   components: {
