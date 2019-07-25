@@ -6,7 +6,7 @@
     </el-breadcrumb>
     <br />
 
-    <el-form :model="form" ref="form" label-width="80px">
+    <el-form :model="form" ref="form" :rules="rules" label-width="80px" class="demo-ruleForm">
       <el-form-item label="商品类目">
         <el-button @click="dialogTreeVisible = true; getCategories()">选择类目</el-button>
         <span>{{ ' 您选择的类目id为：' + form.cid}}</span>
@@ -20,22 +20,32 @@
       <el-form-item label="商品价格" prop="price">
         <el-input v-model="form.price" placeholder="请输入商品价格"></el-input>
       </el-form-item>
-      <el-form-item-number label="商品库存" :min="1" controls-position="right" prop="number">
-        <el-input v-model="form.number" placeholder="请输入商品库存"></el-input>
-      </el-form-item-number>
-      <el-form-item label="条形码" prop="barCode">
-        <el-input v-model="form.barCode"></el-input>
+      <el-form-item label="商品库存" prop="num">
+        <el-input-number
+          v-model="form.num"
+          size="medium"
+          placeholder="请输入商品库存"
+          :min="1"
+          controls-position="right"
+        ></el-input-number>
       </el-form-item>
-      <el-form-item label="商品图片">
-        <el-upload class="upload-demo" action multiple :limit="3">
-          <el-button size="small" type="primary">点击上传</el-button>
+      <el-form-item label="条形码">
+        <el-input v-model="form.barcode"></el-input>
+      </el-form-item>
+      <el-form-item label="商品图片" prop="image">
+        <el-upload class="upload-demo" action :limit="1" drag="true">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="商品描述" v-model="form.desc" autosize prop="name" placeholder="请输入商品描述">
-        <wangEditor :catchData="catchData"></wangEditor>
+      <el-form-item label="商品描述" prop="desc">
+        <el-input type="textarea" v-model="form.desc" :rows="5" placeholder="请输入商品描述"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">提交</el-button>
+        <el-button type="primary" @click="submitForm('form')">提交</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -50,6 +60,10 @@
         check-strictly
         @check-change="handleClick"
         ref="treeForm"
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
       ></el-tree>
 
       <div slot="footer" class="dialog-footer">
@@ -65,59 +79,69 @@
 </template>
 
 <script>
-import wangEditor from "./wangEditor";
 import Qs from "qs";
 
 export default {
   data() {
     return {
-      i: 0, //
+      loading: true, //开启页面加载效果
+      i: 0,
       form: {
         //存放输入的表单数据
         cid: "",
         title: "",
         sellPoint: "",
         price: "",
-        number: "",
-        barCode: "",
+        num: "",
+        barcode: "",
+        image: "",
         desc: ""
       },
       dialogTreeVisible: false, //树形组件默认隐藏
       categoriesList: [], //存放后台传回的类目
-      itemId: [],
       defaultProps: {
         children: "children",
         label: "label"
+      },
+      rules: {
+        //表单校验规则
+        title: { required: true, message: "请输入商品标题", trigger: "blur" },
+        sellPoint: {
+          required: true,
+          message: "请输入商品卖点",
+          trigger: "blur"
+        },
+        price: { required: true, message: "请输入商品价格", trigger: "blur" },
+        desc: { required: true, message: "请输入商品描述", trigger: "blur" }
       }
     };
   },
   methods: {
-    catchData(value) {
-      //接受wangEditor子组件传过来的参数
-      this.content = value;
-    },
-    submitForm() {
+    submitForm(forName) {
       //新增商品表单提交
-      var item = {
-        title: this.form.title,
-        sellPoint: this.form.sellPoint,
-        price: this.form.price,
-        number: this.form.number,
-        barCode: this.form.barCode
-      }
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+
       this.axios
-        .post("/1api/item/save", Qs.stringify(item), {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+        .get("/1api/item/save", {
+          params: {
+            title: this.form.title,
+            sellPoint: this.form.sellPoint,
+            price: this.form.price,
+            num: this.form.num,
+            barcode: this.form.barCode,
+            desc: this.form.desc,
+            cid: this.form.cid
           }
         })
         .then(response => {
-          this.$message({
-            //新增商品信息成功提示信息
-            message: "商品信息新增成功！",
-            type: "success",
-            center: true
-          });
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -153,17 +177,12 @@ export default {
       }
     },
     getCheckedKeys() {
-      //
+      //获取选择的类目id
       this.itemId = this.$refs.treeForm.getCheckedKeys();
-
       for (var i = 0; i < this.itemId.length; i++) {
         this.form.cid = this.itemId[0];
-        console.log(this.form.cid);
       }
     }
-  },
-  components: {
-    wangEditor: wangEditor
   }
 };
 </script>

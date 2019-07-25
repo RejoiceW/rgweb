@@ -1,46 +1,44 @@
-
-
-//使用http-proxy-middleware 代理解决跨域
+//使用代理解决跨域
 
 module.exports = {
   devServer: {
     proxy: {
-      '/1api': { //商品
+      '/1api': { //商品管理 奕桦
         target: 'http://10.25.193.205:9999', //源地址
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/1api': ''
         }
       },
-      '/2api': { //商品类别
+      '/2api': { //商品类别管理 雨檬
         target: 'http://10.25.193.177:9999', //源地址
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/2api': ''
         }
       },
-      '/3api': { //商品描述
+      '/3api': { //商品描述管理 佳琪
         target: 'http://10.25.193.118:9998', //源地址
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/3api': ''
         }
       },
-      '/4api': { //用户管理  qinzi
+      '/4api': { //用户管理
         target: 'http://10.25.193.146:9999', //源地址
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/4api': ''
         }
       },
-      '/5api': { //订单管理   feifei
+      '/5api': { //订单管理
         target: 'http://10.25.193.190:9999', //源地址
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/5api': ''
         }
       },
-      '/6api': { //搜索 wenkang
+      '/6api': { //搜索 文康
         target: 'http://10.25.193.148:9996', //源地址
         // ws: true, //是否代理websockets
         changeOrigin: true, //允许跨域
@@ -48,16 +46,14 @@ module.exports = {
           '^/6api': ''
         }
       },
-      '/7api': { //搜索 jinhua
+      '/7api': { //搜索 金华
         target: 'http://10.25.193.165:9999', //源地址
         // ws: true, //是否代理websockets
         changeOrigin: true, //允许跨域
         pathRewrite: {
           '^/7api': ''
         }
-      },
-      
-      // http://10.25.193.148:9999
+      }
     }
   }
 }

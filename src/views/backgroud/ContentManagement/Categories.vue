@@ -14,7 +14,6 @@
         node-key="id"
         default-expand-all
         :expand-on-click-node="false"
-        :render-content="renderContent"
       ></el-tree>
     </div>
   </div>
