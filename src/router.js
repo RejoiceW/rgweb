@@ -11,6 +11,8 @@ import ChangePass from './components/UserManagement/MyRG/ChangePass'
 import FindPass from './components/UserManagement/FindPass'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
 import MyOrder from './components/Myorder/MyOrder'
+import HomePage from './components/HomePage'
+import Shangpinliebiao from './components/Shangpinliebiao'
 
 import Background from './views/backgroud/Background'
 import AddGoods from './views/backgroud/GoodsManagement/AddGoods'
@@ -98,6 +100,16 @@ const router = new Router({
       path: '/shoppingCart',
       name: 'shoppingCart',
       component: ShoppingCart
+    },
+    {
+      path: '/shangpinliebiao',
+      name: 'shangpinliebiao',
+      component: Shangpinliebiao
+    },
+    {
+      path: '/HomePage',
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/background',
