@@ -8,6 +8,8 @@ import MyInfo from './components/UserManagement/MyRG/MyInfo'
 import ChangePass from './components/UserManagement/MyRG/ChangePass'
 import FindPass from './components/UserManagement/FindPass'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
+import HomePage from './components/HomePage'
+import Shangpinliebiao from './components/Shangpinliebiao'
 
 import Background from './views/backgroud/Background'
 import AddGoods from './views/backgroud/GoodsManagement/AddGoods'
@@ -80,6 +82,16 @@ export default new Router({
       path: '/shoppingCart',
       name: 'shoppingCart',
       component: ShoppingCart
+    },
+    {
+      path: '/shoppingliebiao',
+      name: 'shoppingliebiao',
+      component: shoppingliebiao
+    },
+    {
+      path: '/HomePage',
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/background',

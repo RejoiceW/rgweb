@@ -57,7 +57,33 @@
 
 
 <script>
-export default {};
+export default {
+    data() {
+      return {
+        id:'',
+        title:'',
+        sell_point:'',
+        price:'',
+        image:'',
+        category_name:'',
+        item_desc:'',
+        kw:'',
+        itemList:[]
+      }
+    },
+    methods:{
+    sousuo(){
+        this.axios.get('/6api/search/q',{params:{kw:this.kw}}).then((response) => {
+          console.log(response.data.data);
+          this.itemList = response.data.data.itemList;
+          console.log(this.itemList);
+        }).catch((error) => {
+          alert(error);
+        });
+         this.$router.push('shangpinliebiao')
+      }
+    }
+}
 </script>
 
 <style scoped lang="scss">
