@@ -84,9 +84,9 @@ export default new Router({
       component: ShoppingCart
     },
     {
-      path: '/shoppingliebiao',
-      name: 'shoppingliebiao',
-      component: shoppingliebiao
+      path: '/shangpinliebiao',
+      name: 'shangpinliebiao',
+      component: Shangpinliebiao
     },
     {
       path: '/HomePage',
