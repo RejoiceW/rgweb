@@ -14,7 +14,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // import Vueookies from "js-cookie"
 // Vue.use(VueCookies)
-import './assets/index.scss'
+// import './assets/index.scss'
 
 //注册组件
 Vue.use(VueAxios,axios);

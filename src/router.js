@@ -29,11 +29,10 @@ import UserList from './views/backgroud/UserManagement/UserList'
 Vue.use(Router)
 const router = new Router({
   // 配置路由匹配规则
-  routes: [
-    {
+  routes: [{
       path: '/',
-      redirect: '/home' //路由重定向,
-      , meta: {
+      redirect: '/home', //路由重定向,
+      meta: {
         isLogin: false
       }
     },
@@ -48,7 +47,7 @@ const router = new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home , 
+      component: Home,
       meta: {
         isLogin: false
       }
@@ -172,8 +171,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-// console.log(from);
-// console.log(to);
   //获取用户登录成功后储存的登录标志
   let getFlag = localStorage.getItem("Flag");
   //如果登录标志存在且为isLogin，即用户已登录
@@ -182,9 +179,9 @@ router.beforeEach((to, from, next) => {
     store.state.isLogin = true;
     next()
     //如果已登录，还想想进入登录注册界面，则定向回首页
-    if (to.path=='/userLogin') {  
+    if (to.path == '/userLogin') {
       next({
-         path:'/myRG/myInfo'
+        path: '/myRG/myInfo'
       })
     }
     //如果登录标志不存在，即未登录
@@ -198,9 +195,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-
   }
-
 });
 
 router.afterEach(route => {

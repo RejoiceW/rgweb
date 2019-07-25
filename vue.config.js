@@ -65,7 +65,6 @@ module.exports = {
         pathRewrite: {
           '^/9api': ''
         }
-
       },
       '/wenkang':{  //首页 文康
         target:'http://10.25.193.148:9998',
@@ -73,6 +72,22 @@ module.exports = {
         pathRewrite:{
               '^/wenkang':''
           }
+      },
+      '/13api': { //订单管理   feifei
+        target: 'http://10.25.193.190:9999', //源地址
+        // ws: true, //是否代理websockets
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/5api': ''
+        }
+      },
+      '/12api': { //购物车   feifei
+        target: 'http://10.25.193.190:9997', //源地址
+        // ws: true, //是否代理websockets
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/6api': ''
+        }
       },
     }
   }
