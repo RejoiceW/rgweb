@@ -11,7 +11,8 @@ import ChangePass from './components/UserManagement/MyRG/ChangePass'
 import FindPass from './components/UserManagement/FindPass'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
 import HomePage from './components/HomePage'
-// import Shangpinliebiao from './components/Shangpinliebiao'
+import GoodsDetails from './components/GoodsManagement/GoodsDetails'
+import MyOrder from './components/Myorder/MyOrder'
 
 import Background from './views/backgroud/Background'
 import AddGoods from './views/backgroud/GoodsManagement/AddGoods'
@@ -42,13 +43,12 @@ const router = new Router({
     },
     {
       path: '/myRG',
-      redirect: 'myRG/myInfo' //路由重定向
+      redirect: '/myRG/myInfo' //路由重定向
     },
     {
       path: '/home',
       name: 'home',
       component: Home,
-      
     },
     {
       path: '/userLogin',
@@ -58,9 +58,15 @@ const router = new Router({
     {
       path: '/register',
       name: 'register',
-      component: Register, meta: {
+      component: Register,
+      meta: {
         isLogin: false
       }
+    },
+    {
+      path: '/goodsDetails',
+      name: 'goodsDetails',
+      component: GoodsDetails,
     },
     {
       path: '/myRG',
@@ -79,6 +85,11 @@ const router = new Router({
           path: '/myRG/changePass',
           name: 'changePass',
           component: ChangePass
+        },
+        {
+          path: '/myRG/myOrder',
+          name: 'myOrder',
+          component: MyOrder,
         }
       ]
     },
@@ -92,11 +103,6 @@ const router = new Router({
       name: 'shoppingCart',
       component: ShoppingCart
     },
-    // {
-    //   path: '/shangpinliebiao',
-    //   name: 'shangpinliebiao',
-    //   component: Shangpinliebiao
-    // },
     {
       path: '/HomePage',
       name: 'HomePage',

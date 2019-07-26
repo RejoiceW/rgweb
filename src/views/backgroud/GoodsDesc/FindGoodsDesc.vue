@@ -38,7 +38,8 @@
       :total="total"
     ></el-pagination>
 
-    <el-dialog title="编辑商品" :visible.sync="dialogFormVisible">
+    <!-- 商品详情对话框 -->
+    <el-dialog title="商品详情" :visible.sync="dialogFormVisible">
       <span v-html="desc"></span>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>

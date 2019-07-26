@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <my-header></my-header>
 
     <div id="top-div">
@@ -30,11 +31,15 @@
         </div>
       </div>
     </div>
+
+    <my-footer></my-footer>
+
   </div>
 </template>
 
 <script>
-import Header from "../Header";
+import Header from '../Header';
+import Footer from '../Footer'
 import Qs from 'qs';
 
 export default {
@@ -70,6 +75,14 @@ export default {
               type: "success",
               center: true
             });
+            this.$router.push({path:"/"});
+          }else if(response.data.status == 400) {
+             this.$message({
+              //修改商品信息成功提示信息
+              message: "注册失败",
+              type: "error",
+              center: true
+            });
           }
         })
         .catch(error => {
@@ -78,7 +91,8 @@ export default {
     }
   },
   components: {
-    "my-header": Header
+    'my-header': Header,
+    'my-footer': Footer
   }
 };
 </script>
@@ -100,9 +114,6 @@ h1 {
   top: 150px;
   left: 400px;
   color: rgb(255, 255, 255);
-  // text-shadow: 0 0 20px #fdec84, 10px -10px 30px #ffae35,
-  //   20px -20px 40px #ec760c, -20px -60px 50px #cd4607, 0px -80px 60px #973717,
-  //   10px -40px 70px #451b0e;
 }
 
 #inner-div {

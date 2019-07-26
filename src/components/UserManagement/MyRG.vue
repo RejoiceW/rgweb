@@ -3,14 +3,14 @@
 
     <my-header></my-header>
     <my-searchBox></my-searchBox>
-
+    <div id=box>
     <div id="left-box">
       <ul>
         <li>
           <router-link to="/myRG/myInfo">我的信息</router-link>
         </li>
         <li>
-          <router-link to>我的订单</router-link>
+          <router-link to="/myRG/myOrder">我的订单</router-link>
         </li>
         <li>
           <router-link to="/myRG/changePass">修改密码</router-link>
@@ -23,21 +23,21 @@
         <router-view></router-view>
       </transition>
     </div>
+    </div>
+    <my-footer></my-footer>
 
   </div>
 </template>
 
 <script>
 import Header from '../Header'
+import Footer from '../Footer'
 import SearchBox from '../SearchBox'
 
 export default {
-  data() {
-    return {};
-  },
-  methods: {},
   components: {
     'my-header': Header,
+    'my-footer': Footer,
     'my-searchBox': SearchBox
   }
 };
@@ -47,8 +47,12 @@ export default {
 * {
   list-style: none;
   text-decoration: none;
+  padding: 0px;
 }
-
+#box{
+  overflow: hidden;
+  padding: 50px;
+}
 #left-box {
   width: 200px;
   position: relative;
@@ -57,7 +61,7 @@ export default {
 }
 
 #right-box {
-  width: 800px;
+  width: 850px;
   position: relative;
   top: 20px;
   left: 30%;

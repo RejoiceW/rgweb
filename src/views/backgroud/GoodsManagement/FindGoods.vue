@@ -171,6 +171,12 @@ export default {
         })
         .catch(error => {
           console.log(error);
+          this.$message({
+            //删除成功提示信息
+            message: "删除失败",
+            type: "error",
+            center: true
+          });
         });
     },
     shangjia(row) {

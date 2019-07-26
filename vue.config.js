@@ -66,12 +66,20 @@ module.exports = {
           '^/9api': ''
         }
       },
-      '/wenkang':{  //首页 文康
-        target:'http://10.25.193.148:9998',
-        changeOrigin:true,//允许跨域
-        pathRewrite:{
-              '^/wenkang':''
-          }
+      '/11api': { //
+        target: 'http://10.25.193.205:9998',
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/11api': ''
+        }
+      },
+      '/12api': { //购物车   feifei
+        target: 'http://10.25.193.190:9997', //源地址
+        // ws: true, //是否代理websockets
+        changeOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/6api': ''
+        }
       },
       '/13api': { //订单管理   feifei
         target: 'http://10.25.193.190:9999', //源地址
@@ -81,12 +89,11 @@ module.exports = {
           '^/5api': ''
         }
       },
-      '/12api': { //购物车   feifei
-        target: 'http://10.25.193.190:9997', //源地址
-        // ws: true, //是否代理websockets
+      '/wenkang': { //首页 文康
+        target: 'http://10.25.193.148:9998',
         changeOrigin: true, //允许跨域
         pathRewrite: {
-          '^/6api': ''
+          '^/wenkang': ''
         }
       },
     }

@@ -7,8 +7,7 @@ const store = new Vuex.Store({
   // 设置属性
   state: {
     isLogin: false,
-    test: "",
-    
+    itemnum: ''
   },
 
   // 设置属性状态
@@ -17,10 +16,9 @@ const store = new Vuex.Store({
     userStatus(state, flag) {
       state.isLogin = flag
     },
-    setValue(state, x) {
-      state.test = x;
+    setItemNum(state, num) {
+      state.itemnum = num;
     }
-
   },
 
   // 获取属性的状态

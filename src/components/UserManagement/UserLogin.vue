@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <my-header></my-header>
 
     <div id="top-div">
@@ -22,6 +23,7 @@
     </div>
 
     <my-footer></my-footer>
+
   </div>
 </template>
 
@@ -31,7 +33,6 @@ import Footer from "../Footer";
 import Qs from "qs";
 import axios from "axios";
 import { constants } from "crypto";
-// import { finished } from "stream";
 
 export default {
   data() {
