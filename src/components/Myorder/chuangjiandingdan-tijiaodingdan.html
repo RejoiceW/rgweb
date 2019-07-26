@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="睿购商城，睿购商城电商，网上购物，网上商城，数码产品，手机，笔记本，相机，手表">
+    <meta name="description" content="便捷的网上购物平台">
+
+    <title>订单确认 - 睿购商城电商平台</title>
+    <style>
+        .header .jdlogo {
+            position: absolute;
+            left: 0px;
+            top: 20px;
+            display: block;
+            width: 240px;
+            height: 80px;
+            background-image: url(../images/logo.png);
+            background-size: 240px 80px;
+        }
+
+        .header .search-con {
+            padding: 40px 0 30px 250px;
+        }
+
+        .header .search-con .search-input {
+            width: 550px;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            font-size: 15px;
+            border: 2px solid #FF8800;
+            outline: none;
+        }
+
+        .header .search-con .search-btn {
+            position: absolute;
+            height: 44px;
+            width: 80px;
+        }
+
+
+        .crumb {
+            margin-bottom: 15px;
+            height: 50px;
+            line-height: 50px;
+            background: #eee;
+            color: #888;
+            font-size: 14px;
+            border-top: 2px solid #FF8800;
+        }
+
+        .nav {
+            background: #eee;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .nav .user {
+            float: left;
+        }
+
+        .nav .user.login {
+            display: none;
+        }
+
+        .nav .user .link {
+            margin-right: 5px;
+        }
+
+        .nav .nav-list {
+            float: right;
+        }
+
+        .nav .nav-list .nav-item {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f6f6f6;
+            font: 12px/1.5 tahoma, arial, Microsoft YaHei, sans-serif;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        input[type='checkbox'] {
+            cursor: pointer;
+        }
+
+
+        .w {
+            width: 1080px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .panel {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        .panel .panel-title {
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+        }
+
+        .panel .panel-body {
+            padding: 10px;
+            overflow: hidden;
+        }
+
+
+        .hide {
+            display: none;
+        }
+
+        .link {
+            color: #999;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: #e80012;
+        }
+
+        .link-text {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            vertical-align: middle;
+            border: none;
+            background: #FF8800;
+            font-size: 17px;
+            font-weight: bold;
+            color: #fff;
+            outline: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-mini {
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+            padding: 0 10px;
+        }
+
+
+        .loading {
+            margin: 10px auto;
+            display: block;
+            width: 65px;
+            height: 65px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: url(../images/loading.gif) no-repeat;
+            opacity: .6;
+        }
+
+        .left-con {
+            float: left;
+            width: 130px;
+            min-height: 100px;
+        }
+
+        .right-con {
+            float: left;
+            width: 950px;
+        }
+
+        .menu-item {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .menu-item.active .link {
+            color: #FF8800;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding-bottom: 10px;
+        }
+
+        .footer .slogen {
+            margin: 0 auto;
+            display: block;
+            height: 54px;
+            line-height: 54px;
+        }
+
+        .footer .slogen .item-con {
+            line-height: 54px;
+            text-align: center;
+            float: left;
+            margin-left: 25px;
+        }
+
+        .footer .slogen .item-con .item-txt {
+            float: left;
+            padding-left: 10px;
+            height: 42px;
+            line-height: 42px;
+            font-size: 20px;
+            font-weight: 700;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #444;
+        }
+
+        .footer .slogen .item-con .img-duo {
+            float: left;
+            width: 48px;
+            height: 53px;
+            background: url(../images/duo.png);
+        }
+
+        .footer .slogen .item-con .img-kuai {
+            float: left;
+            width: 48px;
+            height: 53px;
+            background: url(../images/kuai.png);
+        }
+
+        .footer .slogen .item-con .img-hao {
+            float: left;
+            width: 48px;
+            height: 53px;
+            background: url(../images/hao.png);
+        }
+
+        .footer .slogen .item-con .img-sheng {
+            float: left;
+            width: 48px;
+            height: 53px;
+            background: url(../images/sheng.png);
+        }
+
+        .footer .copyright {
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            color: #666;
+            line-height: 30px;
+        }
+
+        .address-item,
+        .address-add {
+            margin: 20px 20px 0 0;
+            width: 200px;
+            padding: 5px 8px;
+            float: left;
+            border: 3px dashed #ccc;
+            cursor: pointer;
+        }
+
+        .address-item.active {
+            border: 3px dashed #FF8800;
+        }
+
+        .address-item:hover,
+        .address-add:hover {
+            background: #fafafa;
+        }
+
+        .address-item .address-title {
+            color: #666;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .address-item .address-detail {
+            margin-top: 5px;
+            height: 40px;
+            line-height: 20px;
+            overflow: hidden;
+            color: #666;
+        }
+
+        .address-item .address-opera {
+            text-align: right;
+            visibility: hidden;
+        }
+
+        .address-item:hover .address-opera {
+            visibility: visible;
+        }
+
+        .address-item .address-opera .link {
+            margin-right: 5px;
+        }
+
+        .address-add .address-new {
+            padding: 8px 0;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .address-add .address-new .fa {
+            font-size: 50px;
+            line-height: 50px;
+        }
+
+        .address-add .address-new .text {
+            font-size: 12px;
+        }
+
+        .product-table {
+            width: 100%;
+            margin: 10px 0;
+            border-collapse: collapse;
+        }
+
+        .product-table th,
+        .product-table td {
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .product-table .cell-img {
+            padding: 10px;
+            width: 10%;
+            text-align: center;
+        }
+
+        .product-table .cell-img .p-img {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ddd;
+        }
+
+        .product-table .cell-info {
+            width: 30%;
+            text-align: left;
+        }
+
+        .product-table .cell-price {
+            width: 20%;
+            text-align: center;
+        }
+
+        .product-table .cell-count {
+            width: 20%;
+            text-align: center;
+        }
+
+        .product-table .cell-total {
+            width: 20%;
+            text-align: center;
+        }
+
+        .submit-con {
+            background: #eee;
+            text-align: right;
+        }
+
+        .submit-con .submit-total {
+            margin-right: 20px;
+            font-size: 18px;
+            color: #FF8800;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        .submit-con .order-submit {
+            height: 50px;
+            line-height: 50px;
+            width: 100px;
+            text-align: center;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #eee;
+            background: rgba(0, 0, 0, .4);
+            z-index: 1000;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .modal .modal-container {
+            width: 700px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        .modal .modal-container .modal-header {
+            position: relative;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .modal .modal-container .modal-header .modal-title {
+            font-size: 14px;
+        }
+
+        .modal .modal-container .modal-header .close {
+            position: absolute;
+            padding: 10px;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        .modal .modal-container .modal-body {
+            padding: 15px;
+        }
+
+        .form .form-line {
+            margin: 5px 0;
+            overflow: hidden;
+        }
+
+        .form .form-line .label {
+            display: block;
+            float: left;
+            width: 85px;
+            text-align: right;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .form .form-line .label .required {
+            color: red;
+        }
+
+        .form .form-line .form-item {
+            padding: 0 5px;
+            height: 30px;
+            line-height: 30px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .form .form-line .btn {
+            margin-left: 95px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="w">
+            <div class="user-info">
+                <span class="user not-login">
+                    <span class="link js-login">你好，请登录</span>
+                    <span class="link js-register">注册</span>
+                </span>
+                <span class="user login">
+                    <span class="link-text">
+                        欢迎，
+                        <span class="username"></span>
+                    </span>
+                    <span class="link js-logout">退出</span>
+                </span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="link" href="./cart.html">
+                        <i class="fa fa-shopping-cart"></i>
+                        购物车(<span class="cart-count">0</span>)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="link" href="wodedingdan-wodedingdan.html">我的订单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="link" href="wodedingdan-gerenzhongxin.html">我的睿购</a>
+                </li>
+                <li class="nav-item">
+                    <a class="link" href="wodedingdan-guanyuwomen.html">关于睿购商城</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="w">
+            <a class="jdlogo" href="./index.html"></a>
+            <div class="search-con">
+                <input class="search-input" id="search-input" placeholder="请输入商品名称" />
+                <button class="btn search-btn" id="search-btn">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="crumb">
+        <div class="w">
+            <div class="crumb-con">
+                <a class="link" href="./index.html">睿购商城</a>
+                <span>></span>
+                <span class="link-text">订单确认</span>
+            </div>
+        </div>
+    </div>
+    <div class="confirm-wrap w">
+        <div class="panel">
+            <h2 class="panel-title">收货地址</h2>
+            <div class="panel-body address-list"> <a class="address-item" data-id="8716">
+                    <div class="address-title"> <span class="city">成都 四川省</span> <span class="name">（ 刘先生 收 ）</span>
+                    </div>
+                    <div class="address-detail"> 四川省成都市高新区银泰城17栋 13346655998 </div>
+                    <div class="address-opera"> <span class="link address-update">修改</span> <span class="link address-delete">删除</span> </div>
+                </a> <a class="address-item" data-id="8717">
+                    <div class="address-title"> <span class="city">北京 北京</span> <span class="name">（ 刘先生 收 ）</span>
+                    </div>
+                    <div class="address-detail"> 北京市通州区区武夷花园1栋代收 133456789012 </div>
+                    <div class="address-opera"> <span class="link address-update">修改</span> <span class="link address-delete">删除</span> </div>
+                </a>
+                <div class="address-item add">
+                    <div class="address-new"> <i class="fa fa-plus"></i>
+                        <div class="text"><button style="height: 30px; width:60px">新增地址</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <h2 class="panel-title">商品清单</h2>
+            <div class="panel-body order-product">
+                <table class="product-table" data-product-id="" data-checked="">
+                    <tbody>
+                        <tr>
+                            <th width="10%">&nbsp;</th>
+                            <th width="30%" align="left">商品描述</th>
+                            <th width="20%" align="center">价格</th>
+                            <th width="20%" align="center">数量</th>
+                            <th width="20%" align="center">小计</th>
+                        </tr>
+                        <tr>
+                            <td class="product-cell cell-img">
+                                <a href="./detail.html?productId=107" target="_blank">
+                                    <img class="p-img" src="../images/tv-ssmall.jpg">
+                                </a>
+                            </td>
+                            <td align="left">
+                                <a class="link p-name" href="./detail.html?productId=107"
+                                    target="_blank">索尼（SONY）KD-65X8566E 65英寸4K HDR腾讯视频 安卓7.0智能液晶电视（黑色）</a>
+                            </td>
+                            <td align="center">￥10000</td>
+                            <td align="center">x1</td>
+                            <td align="center">￥10000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="submit-con">
+                    <form action="..\Ipayment\zhifubaopay.html">
+                    <span>订单总价：</span>
+                    <span class="submit-total">￥10000</span>
+                    <input class="btn order-submit" style="width: 120px" type="submit" value="提交订单">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="w">
+            <div class="slogen">
+                <div class="item-con">
+                    <p class="img-duo"></p>
+                    <p class="item-txt">品类齐全，轻松购物</p>
+                </div>
+                <div class="item-con">
+                    <p class="img-kuai"></p>
+                    <p class="item-txt">多仓直发，极速配送</p>
+                </div>
+                <div class="item-con">
+                    <p class="img-hao"></p>
+                    <p class="item-txt">正品行货，精致服务</p>
+                </div>
+                <div class="item-con">
+                    <p class="img-sheng"></p>
+                    <p class="item-txt">天天低价，畅选无忧</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>
+                    Copyright © 2018 睿购商城 All Right Reserved
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/order-confirm.js"></script>
+</body>
+
+</html>

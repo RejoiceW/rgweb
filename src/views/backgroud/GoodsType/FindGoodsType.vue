@@ -38,6 +38,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -63,6 +64,7 @@ export default {
       this.axios
         .get("/2api/item/cat/list")
         .then(response => {
+          this.loading = false;
           this.categoriesList = response.data; //获得所有商品类别数据
         })
         .catch(error => {

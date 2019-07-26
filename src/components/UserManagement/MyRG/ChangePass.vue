@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-page-header content="修改密码" id="PageHeader" title="首页"></el-page-header>
+    <el-page-header content="修改密码" id="PageHeader" title="返回" @back="goBack()"></el-page-header>
     <br />
 
     <el-card>
@@ -19,7 +19,7 @@
           <el-input v-model="formLabelAlign.newPass" placeholder="请确认新密码" show-password prefix-icon="el-icon-lock" class="pass-input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary">立即创建</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -38,7 +38,11 @@
         }
       }
     },
-    methods:{}
+    methods:{
+      goBack() {
+        this.$router.go(-1);
+      }
+    }
   }
 </script>
 
