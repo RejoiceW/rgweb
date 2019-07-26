@@ -33,7 +33,7 @@ export default {
   methods: {
     userInfo() {
       this.axios
-        .get("/9api/sso/user/token/" + localStorage.getItem("token"))
+        .get("/9api/sso/user/token/" + sessionStorage.getItem("token"))
         .then(response => {
           this.name = response.data.data.username;
           this.phone = response.data.data.phone;

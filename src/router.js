@@ -10,9 +10,8 @@ import MyInfo from './components/UserManagement/MyRG/MyInfo'
 import ChangePass from './components/UserManagement/MyRG/ChangePass'
 import FindPass from './components/UserManagement/FindPass'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
-import MyOrder from './components/Myorder/MyOrder'
 import HomePage from './components/HomePage'
-import Shangpinliebiao from './components/Shangpinliebiao'
+// import Shangpinliebiao from './components/Shangpinliebiao'
 
 import Background from './views/backgroud/Background'
 import AddGoods from './views/backgroud/GoodsManagement/AddGoods'
@@ -27,6 +26,7 @@ import TongjiNumber from './views/backgroud/InforSta/TongjiNumber'
 import UserList from './views/backgroud/UserManagement/UserList'
 
 Vue.use(Router)
+
 const router = new Router({
   // 配置路由匹配规则
   routes: [{
@@ -48,9 +48,7 @@ const router = new Router({
       path: '/home',
       name: 'home',
       component: Home,
-      meta: {
-        isLogin: false
-      }
+      
     },
     {
       path: '/userLogin',
@@ -60,14 +58,8 @@ const router = new Router({
     {
       path: '/register',
       name: 'register',
-      component: Register
-    },
-    {
-      path: '/myOrder',
-      name: 'myOrder',
-      component: MyOrder,
-      meta: {
-        isLogin: true
+      component: Register, meta: {
+        isLogin: false
       }
     },
     {
@@ -100,11 +92,11 @@ const router = new Router({
       name: 'shoppingCart',
       component: ShoppingCart
     },
-    {
-      path: '/shangpinliebiao',
-      name: 'shangpinliebiao',
-      component: Shangpinliebiao
-    },
+    // {
+    //   path: '/shangpinliebiao',
+    //   name: 'shangpinliebiao',
+    //   component: Shangpinliebiao
+    // },
     {
       path: '/HomePage',
       name: 'HomePage',
@@ -172,7 +164,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   //获取用户登录成功后储存的登录标志
-  let getFlag = localStorage.getItem("Flag");
+  let getFlag = sessionStorage.getItem("Flag");
   //如果登录标志存在且为isLogin，即用户已登录
   if (getFlag === "isLogin") {
     //设置vuex登录状态为已登录
@@ -182,6 +174,14 @@ router.beforeEach((to, from, next) => {
     if (to.path == '/userLogin') {
       next({
         path: '/myRG/myInfo'
+      }) 
+    }else if(to.path == '/register'){
+      sessionStorage.removeItem("Flag");
+      sessionStorage.setItem("LoginUsername","您好,请登录");
+      sessionStorage.removeItem("token");
+      sessionStorage.setItem("state","注册");
+      next({
+        path: '/'
       })
     }
     //如果登录标志不存在，即未登录

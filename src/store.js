@@ -3,16 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const store  = new Vuex.Store({
+const store = new Vuex.Store({
   // 设置属性
   state: {
     isLogin: false,
-  },
-
-  // 获取属性的状态
-  getters: {
-    //获取登录状态
-    isLogin: state => state.isLogin,
+    test: "",
+    
   },
 
   // 设置属性状态
@@ -21,12 +17,23 @@ const store  = new Vuex.Store({
     userStatus(state, flag) {
       state.isLogin = flag
     },
+    setValue(state, x) {
+      state.test = x;
+    }
+
   },
 
+  // 获取属性的状态
+  getters: {
+    //获取登录状态
+    isLogin: state => state.isLogin,
+  },
   // 应用mutations
   actions: {
     //获取登录状态
-    userLogin({commit}, flag) {
+    userLogin({
+      commit
+    }, flag) {
       commit("userStatus", flag)
     },
   }

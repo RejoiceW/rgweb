@@ -32,7 +32,7 @@
       <el-form-item label="条形码">
         <el-input v-model="form.barcode"></el-input>
       </el-form-item>
-    
+
       <el-form-item label="商品图片" prop="image">
         <el-upload
           class="upload-demo"
@@ -84,6 +84,8 @@
         >确 定</el-button>
       </div>
     </el-dialog>
+    {{ this.$store.state.test }}
+
   </div>
 </template>
 
@@ -190,13 +192,19 @@ export default {
     uploadSuccess(res, file) {
       //文件上传成功后获得图片地址
       this.$message({
-            //上传成功提示信息
-            message: "上传图片成功",
-            type: "success",
-            center: true
-          });
+        //上传成功提示信息
+        message: "上传图片成功",
+        type: "success",
+        center: true
+      });
       this.form.image = res.url;
-      },
+    },
+    cunzhi() {
+      this.$store.commit('setValue', 100);
+    }
+  }, 
+  created() {
+    this.cunzhi();
   }
 };
 </script>

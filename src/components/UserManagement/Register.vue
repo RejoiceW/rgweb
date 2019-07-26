@@ -1,49 +1,86 @@
 <template>
   <div>
-
     <my-header></my-header>
 
     <div id="top-div">
-        <h1>上 睿 购，买 个 够！</h1>
-        <div id="inner-div">
-            <h3>用户注册</h3>
-            <hr />
-            <form>
-                <input type="text" placeholder="请输入用户名" class="login-input" />
-                <br />
-                <input type="password" placeholder="请输入密码" class="login-input" />
-                <br />
-                <input type="password" placeholder="请再次输入密码" class="login-input" />
-                <br>
-                <input type="text" placeholder="请输入手机号" class="login-input" />
-                <br>
-                <input type="email" placeholder="请输入邮箱" class="login-input" />
-                <br>
-                <button class="login-input" id="login-button">立即注册</button>
-            </form>
-            <div id="router-div">
-                <router-link to="/userLogin">已有帐号，去登陆>></router-link>
-            </div>
+      <h1>上 睿 购，买 个 够！</h1>
+      <div id="inner-div">
+        <h3>用户注册</h3>
+        <hr />
+        <form>
+          <input type="text" placeholder="请输入用户名" class="login-input" v-model="name" />
+          <br />
+          <input type="password" placeholder="请输入密码" class="login-input" v-model="password" />
+          <br />
+          <input
+            type="password"
+            placeholder="请再次输入密码"
+            class="login-input"
+            v-model="passwordConfirm"
+          />
+          <br />
+          <input type="text" placeholder="请输入手机号" class="login-input" v-model="phone" />
+          <br />
+          <input type="email" placeholder="请输入邮箱" class="login-input" v-model="email" />
+          <br />
+          <button class="login-input" id="login-button" @click="onSubmit()">立即注册</button>
+        </form>
+        <div id="router-div">
+          <router-link to="/userLogin">已有帐号，去登陆>></router-link>
         </div>
+      </div>
     </div>
-
   </div>
 </template>
 
 <script>
-  import Header from '../Header'
+import Header from "../Header";
+import Qs from 'qs';
 
-  export default {
-    data() {
-      return {
-        
-      }
-    },
-    methods:{},
-    components:{
-      'my-header': Header
+export default {
+  data() {
+    return {
+      name: "",
+      password: "",
+      passwordConfirm: "",
+      phone: "",
+      email: ""
+    };
+  },
+  methods: {
+    onSubmit() {
+      var user = {
+        username: this.name,
+        password: this.password,
+        phone: this.phone,
+        email: this.email
+      };
+      this.axios
+        .post("9api/sso/user/register", Qs.stringify(user), {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          if (response.data.status == 200) {
+            this.$message({
+              //修改商品信息成功提示信息
+              message: "注册成功",
+              type: "success",
+              center: true
+            });
+          }
+        })
+        .catch(error => {
+          alert(error);
+        });
     }
-  };
+  },
+  components: {
+    "my-header": Header
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -55,7 +92,7 @@
 #top-div {
   height: 700px;
   width: 100%;
-  background-color: #409EFF;
+  background-color: #409eff;
 }
 
 h1 {
@@ -93,7 +130,7 @@ h3 {
 
 #login-button {
   width: 255px;
-  background-color: #67C23A;
+  background-color: #67c23a;
   border: 0px;
   color: rgb(255, 255, 255);
   font-size: 15px;

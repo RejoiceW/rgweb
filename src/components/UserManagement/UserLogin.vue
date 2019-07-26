@@ -30,7 +30,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Qs from "qs";
 import axios from "axios";
-import { constants } from 'crypto';
+import { constants } from "crypto";
 // import { finished } from "stream";
 
 export default {
@@ -59,31 +59,33 @@ export default {
               type: "success",
               center: true
             });
-             //设置Vuex登录标志为true，默认userLogin为false
-          this.$store.dispatch("userLogin", true);
-         
-          //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
-          //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
-          localStorage.setItem("Flag", "isLogin");
-          localStorage.setItem("token",response.data.data);
-           localStorage.setItem("LoginUsername",this.name);
-          //iViewUi的友好提示
-         console.log( localStorage.getItem("Flag"));
-          //登录成功后跳转到指定页面
-          this.$router.go(-1);
-          }else {
-           this.$message({
+            //设置Vuex登录标志为true，默认userLogin为false
+            this.$store.dispatch("userLogin", true);
+
+            //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
+            //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
+            sessionStorage.setItem("Flag", "isLogin");
+            sessionStorage.setItem("token", response.data.data);
+            sessionStorage.setItem("LoginUsername", this.name);
+             sessionStorage.setItem("state", "注销");
+            console.log(sessionStorage.getItem("Flag"));
+            //登录成功后跳转到指定页面
+            this.$router.go(-1);
+          } else {
+            this.$message({
               //修改商品信息成功提示信息
               message: response.data.msg,
               type: "error",
               center: true
-            }); 
-           
+            });
           }
         })
         .catch(error => {
           alert(error);
         });
+    },
+    set(){
+      
     }
   },
   components: {
