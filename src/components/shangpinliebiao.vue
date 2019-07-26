@@ -17,12 +17,14 @@
         </div>
       </div>
       <div id="div-text">
-        <ul id="ul-text" v-for="item in itemList" :key="item.id">
-          <li class="li-text">
+        <ul id="ul-text">
+          <li class="li-text" v-for="item in itemList" :key="item.itemList">
             <div class="div-link">
-              <a class="link" href="">{{ item.image }} </a>
+              <a class="link" href>
+                <img :src="image.pic">
+              </a>
             </div>
-            <div class="div-span-jiage">
+            <div class="div-span-jiage" >
               <span style="color: red">{{ item.price }}</span>
             </div>
             <div class="div-mingcheng">
@@ -58,32 +60,37 @@
 
 <script>
 export default {
-    data() {
-      return {
-        id:'',
-        title:'',
-        sell_point:'',
-        price:'',
-        image:'',
-        category_name:'',
-        item_desc:'',
-        kw:'',
-        itemList:[]
-      }
-    },
-    methods:{
-    sousuo(){
-        this.axios.get('/6api/search/q',{params:{kw:this.kw}}).then((response) => {
+  data() {
+    return {
+      id: "",
+      title: "",
+      sell_point: "",
+      price: "",
+      image: "",
+      category_name: "",
+      item_desc: "",
+      fq: "",
+      itemList: []
+    };
+  },
+  methods: {
+    getdata() {
+      this.axios
+        .get("/6api/search/q", { params: { fq: this.fq } })
+        .then(response => {
           console.log(response.data.data);
           this.itemList = response.data.data.itemList;
           console.log(this.itemList);
-        }).catch((error) => {
+        })
+        .catch(error => {
           alert(error);
         });
-         this.$router.push('shangpinliebiao')
-      }
     }
-}
+  },
+  created() {
+    this.getdata();
+  }
+};
 </script>
 
 <style scoped lang="scss">
